@@ -110,6 +110,10 @@ namespace CapCap
         /// <param name="e"></param>
         private void frmMain_Resize(object sender, EventArgs e)
         {
+            // ウインドウ比率
+            this.Height = (this.Width - 16) / 16 * 9 + 39;
+
+            // ピクチャボックス
             pictureBox1.Width = this.Width - 16;
             pictureBox1.Height = this.Height - 39;
         }
