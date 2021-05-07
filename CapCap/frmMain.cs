@@ -45,6 +45,11 @@ namespace CapCap
 
             // 出力先設定
             savePath = @"C:\Users\shota\Pictures\capture";
+            // 存在しない場合はフォルダ作成
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
         }
 
         /// <summary>
