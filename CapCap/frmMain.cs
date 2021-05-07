@@ -117,5 +117,16 @@ namespace CapCap
             pictureBox1.Width = this.Width - 16;
             pictureBox1.Height = this.Height - 39;
         }
+
+        /// <summary>
+        /// ピクチャボックスクリック時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            // ダイアログ表示
+            openFileDialog1.ShowDialog();
+        }
     }
 }
