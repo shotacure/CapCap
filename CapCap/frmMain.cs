@@ -19,6 +19,8 @@ namespace CapCap
         private Bitmap combinedImage;
         private Graphics combinedGraphics;
 
+        private string captionPath;
+        private string watchPath;
         private string savePath;
 
         /// <summary>
@@ -28,28 +30,32 @@ namespace CapCap
         {
             InitializeComponent();
 
-            // 初期化
+            // キャプション画像ディレクトリ
+            captionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+
+            // キャプチャ画像監視ディレクトリ
+            watchPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+
+            // 出力先ディレクトリ
+            savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), @"capture");
+            // 存在しない場合はフォルダ作成
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
 
             // ダイアログ設定
             openFileDialog1.Filter = "PNGファイル (*.png)|*.*";
             openFileDialog1.FileName = "*.png";
-            openFileDialog1.InitialDirectory = @"C:\Users\shota\Pictures";
+            openFileDialog1.InitialDirectory = captionPath;
             openFileDialog1.Title = "合成用ファイル";
 
             // ピクチャ設定
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
             // ファイルチェッカ設定
-            fileSystemWatcher1.Path = @"C:\Users\shota\Pictures";
+            fileSystemWatcher1.Path = watchPath;
             fileSystemWatcher1.Filter = "*.jpg";
-
-            // 出力先設定
-            savePath = @"C:\Users\shota\Pictures\capture";
-            // 存在しない場合はフォルダ作成
-            if (!Directory.Exists(savePath))
-            {
-                Directory.CreateDirectory(savePath);
-            }
         }
 
         /// <summary>
@@ -81,7 +87,7 @@ namespace CapCap
         /// <param name="e"></param>
         private void fileSystemWatcher1_Changed(object sender, System.IO.FileSystemEventArgs e)
         {
-            // 検知したファイルがPNGなら指定ファイルを合成して上書き
+            // 検知したファイルがJPGなら指定ファイルを合成して上書き
             if (e.ChangeType == WatcherChangeTypes.Changed && e.FullPath.EndsWith(".jpg"))
             {
                 try 
